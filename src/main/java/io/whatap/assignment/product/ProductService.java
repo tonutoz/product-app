@@ -43,7 +43,7 @@ public class ProductService {
     }
 
     Product result = productRepository.save(product.toEntity());
-    log.info("Add Product {}", result.toString());
+    log.info("Add Product {}", result);
     return ProductResponse.of(result);
   }
 
@@ -53,7 +53,7 @@ public class ProductService {
     Product target = productRepository.findById(id)
         .orElseThrow(() -> new RuntimeException(request.getName()));
     target.update(request);
-    log.info("update Product {}", target.toString());
+    log.info("update Product {}", target);
     return ProductResponse.of(target);
   }
 

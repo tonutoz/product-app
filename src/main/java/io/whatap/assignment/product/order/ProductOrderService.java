@@ -30,7 +30,7 @@ public class ProductOrderService {
   @MethodLogWriter
   public List<ProductOrderResponse> doOrder(final List<ProductOrderRequest> requests) {
 
-    List<ProductOrderResponse> results = requests.stream().map((req) -> {
+    return requests.stream().map((req) -> {
       log.debug("id {}", req.getProductId());
       Product product = productRepository.findById(req.getProductId())
           .orElseThrow(() -> new RestApiException(
@@ -49,8 +49,6 @@ public class ProductOrderService {
           .amount(product.getAmount())
           .build();
     }).toList();
-
-    return results;
   }
 
   /**
@@ -63,7 +61,7 @@ public class ProductOrderService {
   @MethodLogWriter
   public List<ProductOrderResponse> modifyOrder(final List<ProductOrderRequest> requests) {
 
-    List<ProductOrderResponse> results = requests.stream().map((req) -> {
+    return requests.stream().map((req) -> {
       Product product = productRepository.findById(req.getProductId())
           .orElseThrow(() -> new RestApiException(
               ProductError.PRODUCT_NOT_FOUND));
@@ -79,7 +77,6 @@ public class ProductOrderService {
           .amount(product.getAmount())
           .build();
     }).toList();
-    return results;
   }
 
 

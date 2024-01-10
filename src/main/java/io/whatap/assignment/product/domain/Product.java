@@ -59,11 +59,11 @@ public class Product extends CommonEntity {
       this.name = productRequest.getName();
     }
 
-    if (this.quantity != productRequest.getQuantity()) {
+    if (!this.quantity.equals(productRequest.getQuantity())) {
       this.quantity = productRequest.getQuantity();
     }
 
-    if (this.amount != productRequest.getAmount()) {
+    if (this.amount.equals(productRequest.getAmount())) {
       this.amount = productRequest.getAmount();
     }
   }
