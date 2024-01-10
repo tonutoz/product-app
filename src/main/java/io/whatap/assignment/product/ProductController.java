@@ -2,9 +2,14 @@ package io.whatap.assignment.product;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.whatap.assignment.cmm.aop.ExecutionTimeChecker;
+import io.whatap.assignment.cmm.exception.ErrorResponse.ValidationError;
+import io.whatap.assignment.cmm.validation.RequestEntityValidator;
 import io.whatap.assignment.product.dto.ProductRequest;
 import io.whatap.assignment.product.dto.ProductResponse;
+import io.whatap.assignment.product.exception.InvalidRequestException;
+import io.whatap.assignment.product.exception.ProductError;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +32,8 @@ public class ProductController {
 
   private final ProductService service;
 
+  private final RequestEntityValidator<ProductRequest> productRequestVlidator;
+
   @ExecutionTimeChecker
   @GetMapping("/{id}")
   public ProductResponse getProduct(@PathVariable final Long id){
@@ -43,6 +50,13 @@ public class ProductController {
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public ProductResponse addProduct(@RequestBody @Valid final ProductRequest request) {
+
+    List<ValidationError> validationErrorList = productRequestVlidator.validate(request);
+
+    if(!validationErrorList.isEmpty()) {
+      throw new InvalidRequestException(ProductError.PRODUCT_REQ_NOT_VALID, validationErrorList);
+    }
+
     return service.addProduct(request);
   }
 

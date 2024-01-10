@@ -15,13 +15,13 @@ public class ProductRequest {
     private String name;
 
     @NotNull
-    private int amount;
+    private Integer amount;
 
     @NotNull
     private Integer quantity;
 
     @Builder
-    public ProductRequest(String name, int amount, Integer quantity) {
+    public ProductRequest(String name, Integer amount, Integer quantity) {
       this.name = name;
       this.amount = amount;
       this.quantity = quantity;
