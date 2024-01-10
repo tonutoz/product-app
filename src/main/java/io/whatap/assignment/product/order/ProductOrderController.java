@@ -38,12 +38,14 @@ public class ProductOrderController {
 
   @ExecutionTimeChecker
   @DeleteMapping()
+  @ResponseStatus(HttpStatus.OK)
   public void cancelOrder(@RequestBody final List<ProductOrderRequest> requests) {
     service.cancelOrder(requests);
   }
 
   @ExecutionTimeChecker
   @PutMapping
+  @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<List<ProductOrderResponse>> updateOrder(
       @RequestBody List<ProductOrderRequest> requests) {
     return ResponseEntity.ok().body(service.modifyOrder(requests));
