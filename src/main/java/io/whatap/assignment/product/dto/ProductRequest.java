@@ -11,13 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ProductRequest {
 
-    @NotNull
     private String name;
 
-    @NotNull
     private Integer amount;
 
-    @NotNull
     private Integer quantity;
 
     @Builder
